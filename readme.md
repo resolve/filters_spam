@@ -33,7 +33,7 @@ So, say you wanted to mark 'ruby' and 'rails' as spam words you simply pass them
 in using the ``:extra_spam_words`` option:
 
     filters_spam({
-      :extra_spam_words => %w(rails)
+      :extra_spam_words => %w(ruby rails)
     })
 
 Enjoy a life with less spam.
