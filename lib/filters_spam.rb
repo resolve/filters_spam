@@ -1,3 +1,4 @@
+# Just call filters_spam in your model with any of the options you want.
 def filters_spam(options = {})
   options = {
     :message_field => :message,
@@ -38,9 +39,6 @@ def filters_spam(options = {})
     end
 
   protected
-
-    # heavily based off http://github.com/rsl/acts_as_snook
-    # which is based off http://snook.ca/archives/other/effective_blog_comment_spam_blocker
 
     def score_for_message_links
       link_count = self.#{options[:message_field]}.to_s.scan(/http:/).size
