@@ -9,9 +9,14 @@ def filters_spam(options = {})
   }.update(options)
 
   self.module_eval do
-    scope :ham, lambda {{:conditions => {:spam => false}, :order => 'created_at DESC'}}
-    scope :spam, lambda {{:conditions => {:spam => true}, :order => 'created_at DESC'}}
-    before_validation(:on => :create) { calculate_spam_score }
+    if Rails.version < '3.0.0'
+      named_scope :ham, :conditions => {:spam => false}
+      named_scope :spam, :conditions => {:spam => true}
+    else
+      scope :ham, :conditions => {:spam => false}
+      scope :spam, :conditions => {:spam => true}
+    end
+    before_validation(:on => :create) { |spammable| spammable.send(:calculate_spam_score) }
 
     cattr_accessor :spam_words
     self.spam_words = %w{
