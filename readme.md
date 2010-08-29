@@ -12,12 +12,23 @@ that allows models to attach to it to provide spam filtering functionality.
 
 ## Usage
 
-Once you have the plugin installed, you can use it by calling the function in your model like so:
+Once you have the plugin installed, you need to add a column to the table you will be
+using this for. For example, if you have a table called ``comments``:
+
+    script/generate migration add_spam_to_comments spam:boolean
+    rake db:migrate
+
+The same thing in Rails 3:
+
+    rails generate migration add_spam_to_comments spam:boolean
+    rake db:migrate
+
+Now, you can use it by calling the function in your model like so:
 
     filters_spam
 
 If you want to change the default fields that are used by ``filters_spam``
-then you can pass them in to the method as options.
+then you can pass them in to the method as options. All options are optional.
 
 All of the possible options are outlined below with the default values for each:
 
