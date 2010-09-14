@@ -6,7 +6,7 @@ that allows models to attach to it to provide spam filtering functionality.
 ## Rails Quickstart
 
     # Add to Gemfile
-    gem 'filters_spam', '~> 0.1'
+    gem 'filters_spam', '~> 0.3'
 
     bundle install
 
