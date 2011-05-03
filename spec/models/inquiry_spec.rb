@@ -60,27 +60,27 @@ describe Inquiry do
     end
 
     context "inquiry is marked as spam if" do
-      specify "message containts > 2 links" do
+      specify "message length < 20 and contains >= 1 link" do
         setup
-        inquiry.message = "http://thisisspam.com http://thisisspam.com http://thisisspam.com"
+        inquiry.message = "http://spam.com"
         save_and_assume_spam
       end
 
-      specify "message length < 20 and contains links" do
+      specify "message length > 20 and contains >= 2 links" do
         setup
-        inquiry.message = "This message is http://spam!"
+        inquiry.message = "http://spam.com http://spam.com"
         save_and_assume_spam
       end
 
       specify "message contains spam words" do
         setup
-        inquiry.message = "valeofglamorganconservatives viagra vioxx xanax zolus"
+        inquiry.message = "viagra is a spam word"
         save_and_assume_spam
       end
 
       specify "author contains spam words" do
         setup
-        inquiry.author = "valeofglamorganconservatives viagra vioxx xanax zolus"
+        inquiry.author = "viagra is a spam word"
         save_and_assume_spam
       end
 
@@ -91,11 +91,11 @@ describe Inquiry do
           FilterSpam.configure {|c| c.other_fields = :phone}
         end
         
-        inquiry.phone = "valeofglamorganconservatives viagra vioxx xanax zolus"
+        inquiry.phone = "viagra is a spam word"
         save_and_assume_spam
       end
 
-      suspect_url_parts = %w(.html .info ? & free)
+      suspect_url_parts = %w(.html .info)
       suspect_url_parts.each do |url_part|
         specify "message contains url with #{url_part} in it" do
           setup
@@ -104,18 +104,9 @@ describe Inquiry do
         end
       end
 
-      suspect_tlds = %w(de pl cn)
-      suspect_tlds.each do |tld|
-        specify "message contains url with #{tld} tld" do
-          setup
-          inquiry.message = "http://randomrandomrandomrandom.#{tld}"
-          save_and_assume_spam
-        end
-      end
-
       specify "author field contains link" do
         setup
-        inquiry.author = "http://this.is.spam!"
+        inquiry.author = "http://spam.com"
         save_and_assume_spam
       end
 
@@ -138,7 +129,7 @@ describe Inquiry do
 
       specify "previous message from same email is spam" do
         setup
-        inquiry.message = "http://this.is.another.spam.com"
+        inquiry.message = "http://spam.com http://spam.com"
         inquiry.email = "spam@me.com"
         inquiry.save
         inq = Inquiry.create(:author => "The RSpec guy",

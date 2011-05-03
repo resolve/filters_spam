@@ -37,12 +37,10 @@ module FilterSpam
     def catch_spam
       spam_score = 0
 
-      spam_score += score_for_message_links
-      spam_score += score_for_message_length
+      spam_score += score_for_message_length_and_links
       spam_score += score_for_previous_submissions
       spam_score += score_for_spam_words
       spam_score += score_for_suspect_url
-      spam_score += score_for_suspect_tld
       spam_score += score_for_lame_message_start
       spam_score += score_for_author_link
       spam_score += score_for_same_message
@@ -54,13 +52,18 @@ module FilterSpam
     end
 
     protected
-      def score_for_message_links
-        send(configuration.message_field).scan(/http:/).size > 2 ? 1 : 0
-      end
+      def score_for_message_length_and_links
+        current_score = 0
 
-      def score_for_message_length
-        send(configuration.message_field).length > 20 and
-          send(configuration.message_field).scan(/http:/).size.zero? ? 0 : 1
+        if send(configuration.message_field).length < 20 and
+          send(configuration.message_field).scan(/http:/).size >= 1
+          current_score += 1
+        elsif send(configuration.message_field).length > 25 and
+          send(configuration.message_field).scan(/http:/).size >= 2
+          current_score += 1
+        end
+
+        current_score
       end
 
       def score_for_previous_submissions
@@ -92,12 +95,7 @@ module FilterSpam
       end
 
       def score_for_suspect_url
-        regex = /http:\/\/\S*(\.html|\.info|\?|&|free)/i
-        send(configuration.message_field).scan(regex).size * 1
-      end
-
-      def score_for_suspect_tld
-        regex = /http:\/\/\S*\.(de|pl|cn)/i
+        regex = /http:\/\/\S*(\.html|\.info)/i
         send(configuration.message_field).scan(regex).size * 1
       end
 
