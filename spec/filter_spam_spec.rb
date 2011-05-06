@@ -3,6 +3,8 @@ require "spec_helper"
 describe FilterSpam do
 
   describe ".configure" do
+    after { FilterSpam.configuration = FilterSpam::Configuration.new }
+
     it "allows to configure message field" do
       FilterSpam.configure { |c| c.message_field = :rspec }
       FilterSpam.configuration.message_field.should == :rspec
@@ -20,12 +22,7 @@ describe FilterSpam do
 
     it "allows to configure other fields" do
       FilterSpam.configure { |c| c.other_fields = :rspec }
-      FilterSpam.configuration.other_fields.should == [:rspec]
-    end
-
-    it "allows to configure extra spam words" do
-      FilterSpam.configure { |c| c.extra_spam_words = :rspec }
-      FilterSpam.configuration.extra_spam_words.should == [:rspec]
+      FilterSpam.configuration.other_fields.should include(:rspec)
     end
 
     it "adds extra spam words to spam words list" do
