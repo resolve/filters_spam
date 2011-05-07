@@ -2,6 +2,8 @@ module FilterSpam
   require "filter_spam/configuration"
   require "filter_spam/instance_methods"
 
+  autoload :Recaptcha, "filter_spam/recaptcha"
+
   mattr_accessor :configuration
 
   def self.configure
@@ -17,6 +19,9 @@ module FilterSpam
 
     # setup default configuration
     FilterSpam.configure
+
+    # load recpatcha stuff if needed
+    include FilterSpam::Recaptcha if FilterSpam.configuration.use_recaptcha
 
     before_validation(:on => :create) do |inquiry|
       inquiry.catch_spam

@@ -1,14 +1,18 @@
 module FilterSpam
   class Configuration
-    attr_accessor :message_field, :email_field, :author_field
+    attr_accessor :message_field, :email_field, :author_field, :use_recaptcha,
+                  :recaptcha_public_key, :recaptcha_private_key
     attr_reader :other_fields, :extra_spam_words
 
     def initialize
-      @message_field    = :message
-      @email_field      = :email
-      @author_field     = :author
-      @other_fields     = []
-      @extra_spam_words = []
+      @message_field          = :message
+      @email_field            = :email
+      @author_field           = :author
+      @other_fields           = []
+      @extra_spam_words       = []
+      @use_recaptcha          = false
+      @recaptcha_public_key   = ENV['RECAPTCHA_PUBLIC_KEY']
+      @recaptcha_private_key  = ENV['RECAPTCHA_PRIVATE_KEY']
     end
 
     def other_fields=(other)
