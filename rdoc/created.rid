@@ -1,8 +1,0 @@
-Mon, 09 May 2011 12:13:23 +1200
-README.rdoc	Mon, 09 May 2011 12:07:57 +1200
-lib/filters_spam/configuration.rb	Mon, 09 May 2011 12:05:12 +1200
-lib/filters_spam/instance_methods.rb	Mon, 09 May 2011 12:05:12 +1200
-lib/filters_spam/recaptcha/recaptcha_helper.rb	Mon, 09 May 2011 12:05:15 +1200
-lib/filters_spam/recaptcha/validator.rb	Mon, 09 May 2011 12:05:15 +1200
-lib/filters_spam/recaptcha.rb	Mon, 09 May 2011 12:05:10 +1200
-lib/filters_spam.rb	Mon, 09 May 2011 12:07:57 +1200
