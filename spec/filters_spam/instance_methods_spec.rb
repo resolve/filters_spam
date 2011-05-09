@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe FilterSpam::InstanceMethods do
+describe FiltersSpam::InstanceMethods do
   describe Inquiry do
 
     let(:inquiry) { Inquiry.new }
@@ -89,7 +89,7 @@ describe FilterSpam::InstanceMethods do
           setup
 
           class Inquiry
-            FilterSpam.configure {|c| c.other_fields = :phone}
+            FiltersSpam.configure {|c| c.other_fields = :phone}
           end
 
           inquiry.phone = "viagra is a spam word"

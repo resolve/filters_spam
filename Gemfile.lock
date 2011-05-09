@@ -50,7 +50,7 @@ GIT
 PATH
   remote: .
   specs:
-    filter_spam (0.0.1)
+    filters_spam (0.3)
 
 GEM
   remote: http://rubygems.org/
@@ -107,7 +107,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  filter_spam!
+  filters_spam!
   rails!
   rspec-rails (~> 2.6.rc)
   sqlite3

@@ -1,4 +1,4 @@
-module FilterSpam
+module FiltersSpam
   class Configuration
     attr_accessor :message_field, :email_field, :author_field, :use_recaptcha,
                   :recaptcha_public_key, :recaptcha_private_key

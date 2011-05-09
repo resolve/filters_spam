@@ -1,4 +1,4 @@
-module FilterSpam
+module FiltersSpam
   module InstanceMethods
     def ham?
       not spam?

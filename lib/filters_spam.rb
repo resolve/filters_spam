@@ -1,13 +1,13 @@
-module FilterSpam
-  require "filter_spam/configuration"
-  require "filter_spam/instance_methods"
+module FiltersSpam
+  require "filters_spam/configuration"
+  require "filters_spam/instance_methods"
 
-  autoload :Recaptcha, "filter_spam/recaptcha"
+  autoload :Recaptcha, "filters_spam/recaptcha"
 
   mattr_accessor :configuration
 
   def self.configure
-    self.configuration ||= FilterSpam::Configuration.new
+    self.configuration ||= FiltersSpam::Configuration.new
     yield(configuration) if block_given?
   end
 
@@ -18,10 +18,10 @@ module FilterSpam
     scope :spam,  where(:spam => true)
 
     # setup default configuration
-    FilterSpam.configure
+    FiltersSpam.configure
 
     # load recpatcha stuff if needed
-    include FilterSpam::Recaptcha if FilterSpam.configuration.use_recaptcha
+    include FiltersSpam::Recaptcha if FiltersSpam.configuration.use_recaptcha
 
     before_validation(:on => :create) do |inquiry|
       inquiry.catch_spam

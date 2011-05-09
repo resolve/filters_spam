@@ -1,7 +1,7 @@
-module FilterSpam
+module FiltersSpam
   module Recaptcha
-    require "filter_spam/recaptcha/recaptcha_helper"
-    require "filter_spam/recaptcha/validator"
+    require "filters_spam/recaptcha/recaptcha_helper"
+    require "filters_spam/recaptcha/validator"
 
     extend ActiveSupport::Concern
 
@@ -14,7 +14,7 @@ module FilterSpam
     module InstanceMethods
       protected
         def validate_recaptcha
-          unless FilterSpam::Recaptcha::Validator.validate_recaptcha(recaptcha_challenge_field,
+          unless FiltersSpam::Recaptcha::Validator.validate_recaptcha(recaptcha_challenge_field,
                                                                      recaptcha_response_field)
             self.errors[:base] = "The CAPTCHA solution was incorrect."
           end

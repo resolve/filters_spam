@@ -1,13 +1,13 @@
 require "net/http"
 require "uri"
 
-module FilterSpam
+module FiltersSpam
   module Recaptcha
     module Validator
       def self.validate_recaptcha(challenge, response)
         uri = URI.parse("http://www.google.com/recaptcha/api/verify")
         params = {
-          :privatekey => FilterSpam.configuration.recaptcha_private_key,
+          :privatekey => FiltersSpam.configuration.recaptcha_private_key,
           :challenge => challenge,
           :response => response
         }
