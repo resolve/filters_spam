@@ -20,6 +20,15 @@ module FiltersSpam
             <script>
               $('#recaptcha_challenge_field').attr('name', '#{object_name}[recaptcha_challenge_field]');
               $('#recaptcha_response_field').attr('name', '#{object_name}[recaptcha_response_field]');
+              $('#recaptcha_reload_btn').live('click', function() {
+                $.ajax({
+                  statusCode: {
+                    200: function() {
+                      $('#recaptcha_challenge_field').attr('name', '#{object_name}[recaptcha_challenge_field]');
+                    }
+                  }
+                });
+              });
             </script>"
 
           (html << jquery).html_safe
