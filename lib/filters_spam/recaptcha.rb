@@ -14,10 +14,10 @@ module FiltersSpam
     module InstanceMethods
       protected
         def validate_recaptcha
-          unless FiltersSpam::Recaptcha::Validator.validate_recaptcha(recaptcha_challenge_field,
-                                                                     recaptcha_response_field)
-            self.errors[:base] = "The CAPTCHA solution was incorrect."
-          end
+          status, error = FiltersSpam::Recaptcha::Validator.validate_recaptcha(recaptcha_challenge_field,
+                                                                               recaptcha_response_field)
+          # error string later could be used for I18n
+          self.errors[:base] = error if status == "false"
         end
     end
   end

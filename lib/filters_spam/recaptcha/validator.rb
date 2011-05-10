@@ -12,13 +12,7 @@ module FiltersSpam
           :response => response
         }
 
-        status = Net::HTTP.post_form(uri, params).body.split("\n").first
-
-        if status == "true"
-          true
-        elsif status == "false"
-          false
-        end
+        Net::HTTP.post_form(uri, params).body.split("\n")
       end
     end
   end
