@@ -23,8 +23,6 @@ module FiltersSpam
     # load recpatcha stuff if needed
     include FiltersSpam::Recaptcha if FiltersSpam.configuration.use_recaptcha
 
-    before_validation(:on => :create) do |inquiry|
-      inquiry.catch_spam
-    end
+    before_validation :catch_spam, :on => :create
   end
 end
