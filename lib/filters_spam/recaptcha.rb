@@ -1,9 +1,9 @@
 module FiltersSpam
   module Recaptcha
+    extend ActiveSupport::Concern
+
     require "filters_spam/recaptcha/recaptcha_helper"
     require "filters_spam/recaptcha/validator"
-
-    extend ActiveSupport::Concern
 
     included do
       attr_accessor :recaptcha_challenge_field, :recaptcha_response_field

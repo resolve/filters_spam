@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe FiltersSpam::InstanceMethods do
+
   describe Inquiry do
 
     let(:inquiry) { Inquiry.new }
@@ -140,5 +141,7 @@ describe FiltersSpam::InstanceMethods do
         end
       end
     end
+  
   end
+
 end

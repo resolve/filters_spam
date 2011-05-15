@@ -20,7 +20,7 @@
     <%= f.text_field :message %>
   </div>
   <div class="field">
-    <%= f.recaptcha if f.respond_to?(:recaptcha) %>
+    <%= f.recaptcha if FiltersSpam.configuration.use_recaptcha %>
   </div>
   <div class="actions">
     <%= f.submit %>

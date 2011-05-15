@@ -1,8 +1,9 @@
 module FiltersSpam
+  extend ActiveSupport::Concern
+
   require "filters_spam/configuration"
   require "filters_spam/instance_methods"
-
-  autoload :Recaptcha, "filters_spam/recaptcha"
+  require "filters_spam/recaptcha"
 
   mattr_accessor :configuration
 
@@ -10,8 +11,6 @@ module FiltersSpam
     self.configuration ||= FiltersSpam::Configuration.new
     yield(configuration) if block_given?
   end
-
-  extend ActiveSupport::Concern
 
   included do
     scope :ham,   where(:spam => false)
