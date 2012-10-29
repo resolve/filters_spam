@@ -1,7 +1,7 @@
 # Just call filters_spam in your model with any of the options you want.
 def filters_spam(options = {})
   options = {
-    :message_field => :message,
+    :message_field => :nil,
     :email_field => :email,
     :author_field => :author,
     :other_fields => [],
@@ -124,14 +124,14 @@ def filters_spam(options = {})
 
     def calculate_spam_score
       score = 0
-      score += score_for_message_links
-      score += score_for_message_length
+      score += score_for_message_links if #{options[:message_field]}
+      score += score_for_message_length if #{options[:message_field]}
       score += score_for_previous_submissions
       score += score_for_spam_words
-      score += score_for_suspect_tld
-      score += score_for_lame_message_start
+      score += score_for_suspect_tld if #{options[:message_field]}
+      score += score_for_lame_message_start if #{options[:message_field]}
       score += score_for_author_link
-      score += score_for_same_message
+      score += score_for_same_message if #{options[:message_field]}
       score += score_for_consonant_runs
       self.spam = (score < 0)
 
