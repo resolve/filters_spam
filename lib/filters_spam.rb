@@ -78,7 +78,7 @@ def filters_spam(options = {})
       spam_words.each do |word|
         regex = /\#{word}/i
         if #{options[:message_field]} =~ regex ||
-           #{options[:author_field]} =~ regex #{" || #{options[:other_fields].join(' =~ regex ')} =~ regex" if options[:other_fields].any?}
+           #{options[:author_field]} =~ regex #{" || #{options[:other_fields].join(' =~ regex || ')} =~ regex" if options[:other_fields].any?}
           current_score -= 1
         end
       end
