@@ -13,8 +13,8 @@ def filters_spam(options = {})
       named_scope :ham, :conditions => {:spam => false}
       named_scope :spam, :conditions => {:spam => true}
     else
-      scope :ham, :conditions => {:spam => false}
-      scope :spam, :conditions => {:spam => true}
+      scope :ham, lambda { where(:spam => false) }
+      scope :spam, lambda { where(:spam => true) }
     end
     before_validation(:on => :create) { |spammable| spammable.send(:calculate_spam_score) }
 
