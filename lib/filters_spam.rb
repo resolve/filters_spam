@@ -61,7 +61,7 @@ def filters_spam(options = {})
     def score_for_previous_submissions
       current_score = 0
 
-      self.class.find(:all, :conditions => {:#{options[:email_field]} => #{options[:email_field]}}).each do |i|
+      self.class.where(:#{options[:email_field]} => #{options[:email_field]}).each do |i|
         if i.spam?
           current_score -= 1
         else
@@ -107,7 +107,7 @@ def filters_spam(options = {})
     end
 
     def score_for_same_message
-      self.class.count(:conditions => {:#{options[:message_field]} => #{options[:message_field]}}) * -1
+      self.class.where(:#{options[:message_field]} => #{options[:message_field]}).count * -1
     end
 
     def score_for_consonant_runs
